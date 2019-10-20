@@ -1,13 +1,11 @@
 BUILDING SIGIL FROM SOURCE USING MINGW32 IN WINDOWS
 ---------------------------------------------------
 
-If you haven't already, it's probaby a good idea to download the CodeBlocks IDE. This guide assumes that you'll be using the MinGW compiler provided by CodeBlocks to compile your code, and that you'll be using CodeBlocks to build your SIGIL applications. If this is not the case, some of the instructions and directories in this guide will need to be changed to reflect your approach.
+If you haven't already, you should download the latest MinGW32 compiler from:
 
-Download the "codeblocks-XX.XXmingw-setup.exe" binary release from:
+	https://osdn.net/projects/mingw/releases/
 
-	http://codeblocks.org/downloads/26
-
-Make sure you download the correct version; there are non-admin and non-mingw version available, but you probably don't want any of those.
+This guide assumes that you'll be using this compiler. If this is not the case, some of the instructions and directories in this guide will need to be changed to reflect your approach. Please also note that the MingW32 compiler provided by a CodeBlocks IDE installation is not currently up to date and may not work properly. Therefore, you should use the one referenced above.
 
 SIGIL uses CMake, which is a cross-platform build tool. You will need to download and run the CMake "Windows Installer" (.msi). When the installer asks, make sure you add CMake to your PATH variable. You can download the installer from:
 
@@ -26,12 +24,12 @@ Navigate to SIGIL's root directory, and enter the "deps" folder. This is where C
 Type the following:
 
     git clone https://github.com/glfw/glfw.git
-    git clone http://git.savannah.gnu.org/cgit/freetype/freetype2.git
+    git clone git://git.sv.nongnu.org/freetype/freetype2.git
 
 SIGIL depends on the OpenGL Extension Wrangler (GLEW) library. Headers and pre-compiled libs are included with SIGIL in the /glew folder. Copy and paste the following files into the appropriate locations as below:
 
-	sigil/glew/lib/mingw32/libglew32.dll.a    ---> C:/Program Files (x86)/CodeBlocks/MinGW/lib/libglew32.dll.a
-	sigil/glew/include/GL/*.h                 ---> C:/Program Files (x86)/CodeBlocks/MinGW/include/GL/*.h
+	sigil/glew/lib/mingw32/libglew32.dll.a    ---> C:/MinGW/lib/libglew32.dll.a
+	sigil/glew/include/GL/*.h                 ---> C:/MinGW/include/GL/*.h
 
 We need OpenAL for audio. Download the "OpenAL 1.1 Core SDK (zip)" file from
 
@@ -39,7 +37,7 @@ We need OpenAL for audio. Download the "OpenAL 1.1 Core SDK (zip)" file from
 
 and extract and run the installer. When prompted, you should also run the OpenAL redistributable, which will place the OpenAL DLLs into your system folder. After all of this, copy the OpenAL header files into the proper location:
 
-	C:\Program Files (x86)\OpenAL 1.1 SDK\include\*.h    ---> C:\Program Files (x86)\CodeBlocks\MinGW\include\*.h
+	C:\Program Files (x86)\OpenAL 1.1 SDK\include\*.h    ---> C:\MinGW\include\*.h
 
 Next, we can start building SIGIL. Enter the directory "sigil" and create a folder called "build-mingw32".
 
@@ -47,23 +45,36 @@ Open CMake-GUI. For "Where is the source code", browse to the root directory "si
 
 Click "Configure". When prompted, select the "MinGW Makefiles" generator from the drop-down list. Select "Use default native compilers", and click "Finish".
 
+NOTE: CMake may find the incorrect MinGW32 compiler on your system if you have more than one installed. For example, the CodeBlocks IDE comes with its own, but unfortunately it is out of date and will likely generate errors. Therefore, please ensure that you are using the correct MinGW32 compiler by checking these variables:
+
+CMAKE_CXX_COMPILER:            C:/MinGW/bin/g++.exe
+CMAKE_CXX_COMPILER_AR          C:/MinGW/bin/gcc-ar.exe
+CMAKE_CXX_COMPILER_RANLIB:     C:/MinGW/bin/gcc-ranlib.exe
+
+CMAKE_C_COMPILER:              C:/MinGW/bin/gcc.exe
+CMAKE_C_COMPILER_AR:           C:/MinGW/bin/gcc-ar.exe
+CMAKE_C_COMPILER_RANLIB:       C:/MinGW/bin/gcc-ranlib.exe
+
+Alternatively, you can "Specify native compilers" to use manually during the CMake "Configure" step instead of selecting "Use default native compilers".
+
 Depending on your system configuration, CMake may have trouble finding the required dependencies. For your reference, these are the values that I use to compile SIGIL.
 
 CMAKE_BUILD_TYPE:               Release
-GLEW_INCLUDE_DIR:               C:/Program Files (x86)/CodeBlocks/MinGW/include
-GLEW_LIBRARY:                   C:/Program Files (x86)/CodeBlocks/MinGW/lib/libglew32.dll.a
-OPENAL_INCLUDE_DIR:             C:/Program Files (x86)/CodeBlocks/MinGW/include/AL
+GLEW_INCLUDE_DIR:               C:/MinGW/include
+GLEW_LIBRARY_DEBUG:             C:/MinGW/lib/libglew32.dll.a
+GLEW_LIBRARY_RELEASE:           C:/MinGW/lib/libglew32.dll.a
+OPENAL_INCLUDE_DIR:             C:/MinGW/include/AL
 OPENAL_LIBRARY:                 C:/Windows/System32/OpenAL32.dll
 
 If errors occur, not all of the above variables may be immediately present. You'll need to fix any existing errors and click "Configure" again for the remaining variables to appear. Repeat this process until the configuration completes without errors---you should only have to do this once or twice if you've set everything up correctly. (It's also possible that CMake will assign the correct values to all of these variables on the first try; it depends on your system configuration.)
 
 If no errors occurred during configuration (a message box will appear if there are errors), you can click "Generate". This will generate a Makefile that we will use to compile SIGIL.
 
-Make sure the CodeBlocks MinGW compiler is in your PATH variable. The path to your CodeBlocks MinGW compiler is probably
+Make sure the MinGW32 compiler is in your PATH variable. The path to your MinGW32 compiler is probably
 
-	C:/Program Files (x86)/CodeBlocks/MinGW/bin
+	C:/MinGW/bin
 
-but it may vary depending on where you've installed CodeBlocks.
+but it may vary depending on where you've installed MinGW32.
 
 Open a terminal in the "build-mingw32" directory. Type
 

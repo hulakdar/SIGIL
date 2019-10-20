@@ -18,7 +18,7 @@ Navigate to SIGIL's root directory, and enter the "deps" folder. This is where C
 Type the following:
 
     git clone https://github.com/glfw/glfw.git
-    git clone http://git.savannah.gnu.org/cgit/freetype/freetype2.git
+    git clone git://git.sv.nongnu.org/freetype/freetype2.git
 
 SIGIL depends on the OpenGL Extension Wrangler (GLEW) library. Headers and pre-compiled libs are included with SIGIL in the /glew folder. Copy and paste the following files into the appropriate locations as below:
 
@@ -42,10 +42,11 @@ Click "Configure". When prompted, select the "Visual Studio 14 2015 Win64" gener
 
 Assuming you followed the directions above correctly, you should not get any configuration errors. However, you can fix them by assigning the appropriate values to the given CMake variables. For your reference, these are the values that I use to compile SIGIL.
 
-GLEW_INCLUDE_DIR: C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include
-GLEW_LIBRARY: C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/amd64/glew32.lib
-OPENAL_INCLUDE_DIR: C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include
-OPENAL_LIBRARY: C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/amd64/OpenAL32.lib
+GLEW_INCLUDE_DIR:               C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include
+GLEW_LIBRARY_DEBUG:             C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/amd64/glew32.lib
+GLEW_LIBRARY_RELEASE:           C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/amd64/glew32.lib
+OPENAL_INCLUDE_DIR:             C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include
+OPENAL_LIBRARY:                 C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/amd64/OpenAL32.lib
 
 If errors occur, not all of the above variables may be immediately present. You'll need to fix any existing errors and click "Configure" again for the remaining variables to appear. Repeat this process until the configuration completes without errors---you should only have to do this once or twice if you've set everything up correctly. (It's also possible that CMake will assign the correct values to all of these variables on the first try; it depends on your system configuration.)
 

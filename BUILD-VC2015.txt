@@ -18,7 +18,7 @@ Navigate to SIGIL's root directory, and enter the "deps" folder. This is where C
 Type the following:
 
     git clone https://github.com/glfw/glfw.git
-    git clone http://git.savannah.gnu.org/cgit/freetype/freetype2.git
+    git clone git://git.sv.nongnu.org/freetype/freetype2.git
 
 SIGIL depends on the OpenGL Extension Wrangler (GLEW) library. Headers and pre-compiled libs are included with SIGIL in the /glew folder. Copy and paste the following files into the appropriate locations as below:
 
@@ -43,7 +43,8 @@ Click "Configure". When prompted, select the "Visual Studio 14 2015" generator (
 Depending on your system configuration, CMake may have trouble finding the required dependencies. For your reference, these are the values that I use to compile SIGIL.
 
 GLEW_INCLUDE_DIR:               C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include
-GLEW_LIBRARY:                   C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/glew32.lib
+GLEW_LIBRARY_DEBUG:             C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/glew32.lib
+GLEW_LIBRARY_RELEASE:           C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/glew32.lib
 OPENAL_INCLUDE_DIR:             C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include
 OPENAL_LIBRARY:                 C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/OpenAL32.lib
 
