@@ -27,7 +27,7 @@ message("------------------------------")
 #--------------------------------------------------------------------
 
 # define our source files
-include_directories(include)
+include_directories(include PUBLIC)
 set(
 	SIGIL_SOURCE
 	src/sl
@@ -125,15 +125,15 @@ if(USE_GLFW)
 	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build the GLFW test programs")
 
 	# build GLFW from source
-	add_subdirectory(${CMAKE_SOURCE_DIR}/deps/glfw)
-	include_directories(${CMAKE_SOURCE_DIR}/deps/glfw/include)
+	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw/include)
 	target_link_libraries(${PROJECT_NAME} glfw)
 
 else()
 
 	# use the cmake file we added to PIGU
-	add_subdirectory(${CMAKE_SOURCE_DIR}/deps/pigu)
-	include_directories(${CMAKE_SOURCE_DIR}/deps/pigu/include)
+	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/deps/pigu)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/deps/pigu/include)
 	target_link_libraries(${PROJECT_NAME} pigu ${PIGU_LIBRARIES})
 
 endif()
@@ -205,6 +205,8 @@ target_link_libraries(${PROJECT_NAME} ${OPENAL_LIBRARY})
 # we depend on OpenGL---it should already be installed and we just need to link to it
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32)
+elseif(APPLE)
+	target_link_libraries(${PROJECT_NAME} OpenGL)
 else()
 	target_link_libraries(${PROJECT_NAME} GL)
 endif()
@@ -214,7 +216,7 @@ endif()
 #--------------------------------------------------------------------
 
 # setup our #define preprocessor directives that specify how SIGIL should be compiled
-configure_file(${CMAKE_SOURCE_DIR}/src/config.h.in ${CMAKE_BINARY_DIR}/src/config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_BINARY_DIR}/src/config.h)
 include_directories(${CMAKE_BINARY_DIR}/src)
 
 #--------------------------------------------------------------------
