@@ -108,7 +108,7 @@ void slWindow(int width, int height, const char *title, int fullScreen)
 		glDisable(GL_DEPTH_TEST);
 
 		// camera view settings
-		slProjectionMatrix = ortho(0.0f, (double)width, 0.0f, (double)height);
+		slProjectionMatrix = ortho(0.0f, (double)width, (double)height, 0.0f);
 
 		// default colors
 		slSetBackColor(0.0, 0.0, 0.0);
