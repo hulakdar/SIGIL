@@ -24,6 +24,9 @@ void sliOpenWindow(int width, int height, const char *title, int fullScreen)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_REFRESH_RATE, 60);
+	glfwWindowHint(GLFW_DOUBLEBUFFER, 1);
+	glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, 0);
+	glfwWindowHint(GLFW_SCALE_TO_MONITOR, 0);
 
 	// create our OpenGL window
 	sliProgramWindow = glfwCreateWindow(width, height, title, fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
