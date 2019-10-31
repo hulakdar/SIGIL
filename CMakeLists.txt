@@ -110,7 +110,7 @@ else()
 endif()
 
 # now that we have all the SIGIL source files, add them to the SIGIL shared lib
-add_library(${PROJECT_NAME} SHARED ${SIGIL_SOURCE})
+add_library(${PROJECT_NAME} STATIC ${SIGIL_SOURCE})
 
 #--------------------------------------------------------------------
 # locate underlying context/window/input library

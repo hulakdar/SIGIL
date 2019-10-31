@@ -54,15 +54,15 @@ GLuint loadOpenGLTexture(const char *filename)
 
 		// we also want mipmapping on for maximum prettiness
 		glGenerateMipmap(GL_TEXTURE_2D);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
 
 		// release the memory used to perform the loading
 		SOIL_free_image_data(data);
 	}
 	else
 	{
-		fprintf(stderr, "loadOpenGLTexture() could not load '%s'\n", filename);
+		fprintf(stderr, "loadOpenGLTexture() could not load '%s' because %s \n", filename, SOIL_last_result());
 		exit(1);
 	}
 
