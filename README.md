@@ -1,4 +1,5 @@
 THIS IS NOR MY WORK
+
 THIS IS A FORK OF https://gitlab.com/geoff-nagy/sigil
 
 All I did was added MacOS support.
